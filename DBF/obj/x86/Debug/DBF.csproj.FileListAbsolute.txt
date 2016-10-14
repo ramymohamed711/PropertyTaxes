@@ -1,0 +1,8 @@
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\bin\x86\Debug\DBF.exe
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\bin\x86\Debug\DBF.pdb
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\DBF.Form1.resources
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\DBF.Properties.Resources.resources
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\DBF.csproj.GenerateResource.Cache
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\DBF.exe
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\x86\Debug\DBF.pdb

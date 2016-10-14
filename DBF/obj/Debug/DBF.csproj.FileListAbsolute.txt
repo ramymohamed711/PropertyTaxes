@@ -6,3 +6,11 @@ C:\Users\Ramy Muhammad\Documents\Visual Studio 2008\Projects\DBF\DBF\obj\Debug\D
 C:\Users\Ramy Muhammad\Documents\Visual Studio 2008\Projects\DBF\DBF\obj\Debug\DBF.csproj.GenerateResource.Cache
 C:\Users\Ramy Muhammad\Documents\Visual Studio 2008\Projects\DBF\DBF\obj\Debug\DBF.exe
 C:\Users\Ramy Muhammad\Documents\Visual Studio 2008\Projects\DBF\DBF\obj\Debug\DBF.pdb
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\bin\Debug\DBF.exe
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\bin\Debug\DBF.pdb
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\DBF.Form1.resources
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\DBF.Properties.Resources.resources
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\DBF.csproj.GenerateResource.Cache
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\DBF.exe
+C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\obj\Debug\DBF.pdb

@@ -35,22 +35,27 @@
             this.commit_conversion = new System.Windows.Forms.Button();
             this.start_conversion = new System.Windows.Forms.Button();
             this.maps_folder = new System.Windows.Forms.Button();
+            this.totalreport = new System.Windows.Forms.Panel();
+            this.totalmaps = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.mapslable = new System.Windows.Forms.Label();
             this.rollbackBar = new System.Windows.Forms.ProgressBar();
             this.commitBar = new System.Windows.Forms.ProgressBar();
             this.conversionBar = new System.Windows.Forms.ProgressBar();
-            this.dbBar = new System.Windows.Forms.ProgressBar();
+            this.mapsBar = new System.Windows.Forms.ProgressBar();
             this.warring = new System.Windows.Forms.NotifyIcon(this.components);
             this.success = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.totalzones = new System.Windows.Forms.Label();
+            this.totaltasks = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.totalreport.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -61,7 +66,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer1.Panel1.Controls.Add(this.roll_back);
             this.splitContainer1.Panel1.Controls.Add(this.commit_conversion);
             this.splitContainer1.Panel1.Controls.Add(this.start_conversion);
@@ -69,17 +74,18 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.totalreport);
             this.splitContainer1.Panel2.Controls.Add(this.label7);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.mapslable);
             this.splitContainer1.Panel2.Controls.Add(this.rollbackBar);
             this.splitContainer1.Panel2.Controls.Add(this.commitBar);
             this.splitContainer1.Panel2.Controls.Add(this.conversionBar);
-            this.splitContainer1.Panel2.Controls.Add(this.dbBar);
+            this.splitContainer1.Panel2.Controls.Add(this.mapsBar);
             this.splitContainer1.Size = new System.Drawing.Size(988, 306);
             this.splitContainer1.SplitterDistance = 170;
             this.splitContainer1.TabIndex = 0;
@@ -110,6 +116,7 @@
             this.start_conversion.TabIndex = 1;
             this.start_conversion.Text = "Start files conversions";
             this.start_conversion.UseVisualStyleBackColor = true;
+            this.start_conversion.Click += new System.EventHandler(this.start_conversion_Click);
             // 
             // maps_folder
             // 
@@ -120,6 +127,55 @@
             this.maps_folder.Text = "Open maps folder";
             this.maps_folder.UseVisualStyleBackColor = true;
             this.maps_folder.Click += new System.EventHandler(this.maps_folder_Click);
+            // 
+            // totalreport
+            // 
+            this.totalreport.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.totalreport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.totalreport.Controls.Add(this.totaltasks);
+            this.totalreport.Controls.Add(this.totalzones);
+            this.totalreport.Controls.Add(this.totalmaps);
+            this.totalreport.Location = new System.Drawing.Point(300, 34);
+            this.totalreport.Name = "totalreport";
+            this.totalreport.Size = new System.Drawing.Size(157, 205);
+            this.totalreport.TabIndex = 13;
+            this.totalreport.Visible = false;
+            // 
+            // totalmaps
+            // 
+            this.totalmaps.AutoSize = true;
+            this.totalmaps.Location = new System.Drawing.Point(3, 17);
+            this.totalmaps.Name = "totalmaps";
+            this.totalmaps.Size = new System.Drawing.Size(59, 13);
+            this.totalmaps.TabIndex = 0;
+            this.totalmaps.Text = "Total maps";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(297, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Total report";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(633, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Failure report";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(502, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Success report";
             // 
             // label4
             // 
@@ -148,14 +204,14 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Files conversion";
             // 
-            // label1
+            // mapslable
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Maps loading";
+            this.mapslable.AutoSize = true;
+            this.mapslable.Location = new System.Drawing.Point(36, 13);
+            this.mapslable.Name = "mapslable";
+            this.mapslable.Size = new System.Drawing.Size(70, 13);
+            this.mapslable.TabIndex = 5;
+            this.mapslable.Text = "Maps loading";
             // 
             // rollbackBar
             // 
@@ -178,13 +234,13 @@
             this.conversionBar.Size = new System.Drawing.Size(202, 31);
             this.conversionBar.TabIndex = 1;
             // 
-            // dbBar
+            // mapsBar
             // 
-            this.dbBar.Location = new System.Drawing.Point(36, 34);
-            this.dbBar.Name = "dbBar";
-            this.dbBar.Size = new System.Drawing.Size(202, 30);
-            this.dbBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.dbBar.TabIndex = 0;
+            this.mapsBar.Location = new System.Drawing.Point(36, 34);
+            this.mapsBar.Name = "mapsBar";
+            this.mapsBar.Size = new System.Drawing.Size(202, 30);
+            this.mapsBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.mapsBar.TabIndex = 0;
             // 
             // warring
             // 
@@ -197,32 +253,25 @@
             this.success.Icon = ((System.Drawing.Icon)(resources.GetObject("success.Icon")));
             this.success.Text = "notifyIcon2";
             // 
-            // label5
+            // totalzones
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(502, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Success report";
+            this.totalzones.AutoSize = true;
+            this.totalzones.Location = new System.Drawing.Point(3, 55);
+            this.totalzones.Name = "totalzones";
+            this.totalzones.Size = new System.Drawing.Size(65, 13);
+            this.totalzones.TabIndex = 1;
+            this.totalzones.Text = "Total zones ";
+            this.totalzones.Visible = false;
             // 
-            // label6
+            // totaltasks
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(633, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Failure report";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(380, 13);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Total report";
+            this.totaltasks.AutoSize = true;
+            this.totaltasks.Location = new System.Drawing.Point(3, 93);
+            this.totaltasks.Name = "totaltasks";
+            this.totaltasks.Size = new System.Drawing.Size(59, 13);
+            this.totaltasks.TabIndex = 2;
+            this.totaltasks.Text = "Total tasks";
+            this.totaltasks.Visible = false;
             // 
             // Form1
             // 
@@ -236,6 +285,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
+            this.totalreport.ResumeLayout(false);
+            this.totalreport.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -250,9 +301,9 @@
         private System.Windows.Forms.ProgressBar rollbackBar;
         private System.Windows.Forms.ProgressBar commitBar;
         private System.Windows.Forms.ProgressBar conversionBar;
-        private System.Windows.Forms.ProgressBar dbBar;
+        private System.Windows.Forms.ProgressBar mapsBar;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label mapslable;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NotifyIcon warring;
@@ -260,6 +311,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel totalreport;
+        private System.Windows.Forms.Label totalmaps;
+        private System.Windows.Forms.Label totaltasks;
+        private System.Windows.Forms.Label totalzones;
 
     }
 }
