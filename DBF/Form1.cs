@@ -13,10 +13,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
+
 
 namespace DBF
 {
@@ -98,8 +98,8 @@ namespace DBF
             functions_object = new Other_functions();
             if (!functions_object.IsNullOrWhiteSpace(mainfolder_path.SelectedPath))
                {
-                 //  try
-               //    {
+                  try
+                   {
                        all_maps = Directory.GetDirectories(mainfolder_path.SelectedPath);
                        success_msg(all_maps.Length + " maps found in \" " + mainfolder_path.SelectedPath + " \" ");
                        mapsBar.Maximum = 100;
@@ -108,10 +108,10 @@ namespace DBF
                        totalreport.Visible = true;
                        totalmaps.Text = totalmaps.Text + " = " + all_maps.Length; 
                        start_conversion.Focus();
-                   //}
-                   //catch (Exception error) {
-                     //  alert_msg(error.ToString());
-                   //}
+                   }
+                   catch (Exception error) {
+                     alert_msg(error.ToString());
+                   }
                   
                 }
          }
@@ -132,10 +132,10 @@ namespace DBF
         {
             conversionBar.Maximum = all_maps.Length;
             conversionBar.Value = 0 ;
-            int flag_TotalZones = 0 , flag_TotalTasks = 0 , flag_successBUID = 0 , flag_failureBUID = 0  ;
+            int flag_TotalZones = 0 , flag_TotalTasks = 0 , flag_successBUID = 0 , flag_failureBUID = 0 ;
             totalzones.Visible = true;
             totaltasks.Visible = true;
-           
+            functions_object.connect_to_database();
            for (int i = 0; i < all_maps.Length; i++)
             
                 {
@@ -149,37 +149,62 @@ namespace DBF
                         String[] zones_tasks = Directory.GetDirectories(Path.Combine(Current_map, map_zones[j]));
                         for (int x = 0; x < zones_tasks.Length; x++)
                         {
+                           
                            try
                             {
                                 flag_TotalTasks += 1;
                                 totaltasks.Text = "Total tasks = " + flag_TotalTasks;
                                 String Current_task = Path.Combine(Current_zone, zones_tasks[x]);
                                 String DBF_file = Path.Combine(Current_task, "RTA_Buildings.dbf");
-                                //System.IO.File.Move(DBF_file, Path.Combine(Current_task, "Backup_RTA_Buildings.dbf"));
+                                System.IO.File.Copy(DBF_file, Path.Combine(Current_task, "Backup_RTA_Buildings.dbf"));
                                 DataTable DBF_DATA = functions_object.GetDBFData(Current_task, "Backup_RTA_Buildings.dbf");
-                                functions_object.CreateDBF(Current_task, "RTA_Buildings.dbf");
-                                 
+                                int total_buid = 0;  
+                                try
+                                {
+                                    
+                                    foreach (DataRow data in DBF_DATA.Rows)
+                                    {
+                                        total_buid += 1;
+                                        String new_buid = "";
+                                        String old_buid = "\""+data["buid"].ToString().Trim()+"\"";
+                                        String task_serial = new DirectoryInfo(zones_tasks[x]).Name ;
+                                        String buid_serial = "";
+                                        if (total_buid <= 9) { buid_serial += "00" + total_buid; }
+                                        else if (total_buid > 9 && total_buid <= 99) { buid_serial += "0" + total_buid; }
+                                        new_buid += "\""+task_serial.Trim() + buid_serial.Trim() + "\"";
+                                        functions_object.Update_BDF(Current_task , new_buid , old_buid);
+                                        functions_object.insert_into_database(old_buid , new_buid);
+                                    }
+
+                                 flag_successBUID += 1;
+                                }catch(Exception error){
+                                    alert_msg(error.ToString());
+                                    flag_failureBUID += 1;
+                                    functions_object.error_log(Current_task);
+                                    continue; 
+                                }
                            
-                           }
-                            catch (Exception error){
+                            }catch (Exception error){
                                 alert_msg(error.ToString());
+                                functions_object.error_log( error.ToString());
+                                flag_failureBUID += 1;
                                 continue;
                             }
+                
                         }//END OF LOOPING ON ALL TASK IN EACH ZONE
                     }//END OF LOOPING ON ALL ZONES IN EACH MAP
                     conversionBar.Value = conversionBar.Value + 1;
                 }// END OF LOOPING ON ALL MAPS
+                
                 success_msg("File conversion finished successfully ");
+                successpanel.Visible = true;
+                failurepanel.Visible = true;
+                totalsuccess.Text = totalsuccess.Text + " = " + flag_successBUID;
+                totalfailure.Text = totalfailure.Text + " = " + flag_failureBUID;
+                successprecentage.Text = successprecentage.Text + " = " + ((flag_successBUID * 100) / flag_TotalTasks) + " %";
+                failureprecentage.Text = failureprecentage.Text + " = " + ((flag_failureBUID * 100)/ flag_TotalTasks)  + " %";
+                fileconversion.Text += " 100%";
+                functions_object.conn.Close();
           }
-           
-        
-
-        
-
-       
-
-
-
-        
     }
 }

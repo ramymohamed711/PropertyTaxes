@@ -1,0 +1,39 @@
+System.IO.FileNotFoundException: Could not find file 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'.
+File name: 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.FileNotFoundException: Could not find file 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'.
+File name: 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.IOException: The file 'C:\maps\0700802\0700802026\0700802026001\Backup_RTA_Buildings.dbf' already exists.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.FileNotFoundException: Could not find file 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'.
+File name: 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.IOException: The file 'C:\maps\0700802\0700802026\0700802026001\Backup_RTA_Buildings.dbf' already exists.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.FileNotFoundException: Could not find file 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'.
+File name: 'C:\maps\0200401\0200401001\0200401001005\RTA_Buildings.dbf'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
+System.IO.IOException: The file 'C:\maps\0700802\0700802026\0700802026001\Backup_RTA_Buildings.dbf' already exists.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName)
+   at DBF.Form1.start_conversion_Click(Object sender, EventArgs e) in C:\Users\Ramy Muhammad\Documents\GitHub\Property-taxes\DBF\Form1.cs:line 159
