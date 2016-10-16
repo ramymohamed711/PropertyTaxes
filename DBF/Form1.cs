@@ -16,8 +16,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
-
-
 namespace DBF
 {
     public partial class Form1 : Form
@@ -46,7 +44,7 @@ namespace DBF
             success.BalloonTipText = message;
             success.BalloonTipIcon = ToolTipIcon.Info;
             success.BalloonTipTitle = "Success !";
-            success.ShowBalloonTip(500);
+            success.ShowBalloonTip(800);
          }
 
 
@@ -60,7 +58,7 @@ namespace DBF
             warring.BalloonTipText = message;
             warring.BalloonTipIcon = ToolTipIcon.Info;
             warring.BalloonTipTitle = "Alert!";
-            warring.ShowBalloonTip(500);
+            warring.ShowBalloonTip(1000);
         }
         
 
@@ -104,10 +102,12 @@ namespace DBF
                        success_msg(all_maps.Length + " maps found in \" " + mainfolder_path.SelectedPath + " \" ");
                        mapsBar.Maximum = 100;
                        mapsBar.Value = 100;
-                       mapslable.Text = mapslable.Text + " 100% ";
+                       mapslable.Text = "Maps loading " + " 100% ";
                        totalreport.Visible = true;
-                       totalmaps.Text = totalmaps.Text + " = " + all_maps.Length; 
+                       totalmaps.Text = "Total maps" + " = " + all_maps.Length;
+                       start_conversion.Enabled = true;  
                        start_conversion.Focus();
+                       rollbackBar.Value = 0; 
                    }
                    catch (Exception error) {
                      alert_msg(error.ToString());
@@ -115,6 +115,7 @@ namespace DBF
                   
                 }
          }
+
 
 
         /*
@@ -130,30 +131,49 @@ namespace DBF
          * */
         private void start_conversion_Click(object sender, EventArgs e)
         {
-            conversionBar.Maximum = all_maps.Length;
-            conversionBar.Value = 0 ;
-            int flag_TotalZones = 0 , flag_TotalTasks = 0 , flag_successBUID = 0 , flag_failureBUID = 0 ;
             totalzones.Visible = true;
             totaltasks.Visible = true;
-            functions_object.connect_to_database();
+            successpanel.Visible = true;
+            failurepanel.Visible = true;
+            successprecentage.Visible = false;
+            failureprecentage.Visible = false;
+            totalfailure.Visible = true;
+            totalfailure.Text = "Total DBFs";
+            fileconversion.Text = "File conversion";
+            fileconversion.Update();    
+            totalfailure.Update();    
+            conversionBar.Maximum = all_maps.Length;
+            conversionBar.Value = 0 ;
+            rollbackBar.Value = 0; 
+        
+           int flag_TotalZones = 0 , flag_TotalTasks = 0 , flag_successBUID = 0 , flag_failureBUID = 0 ;
+           functions_object.connect_to_database();
            for (int i = 0; i < all_maps.Length; i++)
-            
                 {
                     String Current_map = Path.Combine(mainfolder_path.SelectedPath , all_maps[i]) ;
                     String[] map_zones = Directory.GetDirectories(Path.Combine(mainfolder_path.SelectedPath, all_maps[i]));
-                    for (int j = 0; j < map_zones.Length; j++)
+                    zonebar.Value = 0;
+                    zonebar.Maximum = map_zones.Length; 
+                for (int j = 0; j < map_zones.Length; j++)
                     {
+                       
                         flag_TotalZones += 1;
                         totalzones.Text = "Total zones = " + flag_TotalZones;
+                        totalzones.Update();
                         String Current_zone = Path.Combine(Current_map,map_zones[j]);
                         String[] zones_tasks = Directory.GetDirectories(Path.Combine(Current_map, map_zones[j]));
-                        for (int x = 0; x < zones_tasks.Length; x++)
+                        zonebar.Value += 1;
+                        tasksbar.Maximum = zones_tasks.Length;
+                        tasksbar.Value = 0;
+                    for (int x = 0; x < zones_tasks.Length; x++)
                         {
-                           
+                            Application.DoEvents();
+                            flag_TotalTasks += 1;
+                            totaltasks.Text = "Total tasks = " + flag_TotalTasks;
+                            totaltasks.Update();
+                            tasksbar.Value += 1; 
                            try
                             {
-                                flag_TotalTasks += 1;
-                                totaltasks.Text = "Total tasks = " + flag_TotalTasks;
                                 String Current_task = Path.Combine(Current_zone, zones_tasks[x]);
                                 String DBF_file = Path.Combine(Current_task, "RTA_Buildings.dbf");
                                 System.IO.File.Copy(DBF_file, Path.Combine(Current_task, "Backup_RTA_Buildings.dbf"));
@@ -177,10 +197,16 @@ namespace DBF
                                     }
 
                                  flag_successBUID += 1;
+                                 totalsuccess.Text = "Total DBFs" + " = " + flag_successBUID;
+                                 totalsuccess.Update();
                                 }catch(Exception error){
                                     alert_msg(error.ToString());
                                     flag_failureBUID += 1;
                                     functions_object.error_log(Current_task);
+                                    totalfailure.Text = "Total DBFs" + " = " + flag_failureBUID;
+                                    totalfailure.Update();
+                                    currentstatus.Text = zones_tasks[x];
+                                    currentstatus.Update();
                                     continue; 
                                 }
                            
@@ -188,23 +214,84 @@ namespace DBF
                                 alert_msg(error.ToString());
                                 functions_object.error_log( error.ToString());
                                 flag_failureBUID += 1;
+                                totalfailure.Text = "Total DBFs" + " = " + flag_failureBUID;
+                                totalfailure.Update();
+                                currentstatus.Text = zones_tasks[x];
+                                currentstatus.Update();
                                 continue;
                             }
-                
-                        }//END OF LOOPING ON ALL TASK IN EACH ZONE
+                           currentstatus.Text = zones_tasks[x];
+                           currentstatus.Update(); 
+                         }//END OF LOOPING ON ALL TASK IN EACH ZONE
                     }//END OF LOOPING ON ALL ZONES IN EACH MAP
                     conversionBar.Value = conversionBar.Value + 1;
                 }// END OF LOOPING ON ALL MAPS
+
                 
                 success_msg("File conversion finished successfully ");
-                successpanel.Visible = true;
-                failurepanel.Visible = true;
-                totalsuccess.Text = totalsuccess.Text + " = " + flag_successBUID;
-                totalfailure.Text = totalfailure.Text + " = " + flag_failureBUID;
-                successprecentage.Text = successprecentage.Text + " = " + ((flag_successBUID * 100) / flag_TotalTasks) + " %";
-                failureprecentage.Text = failureprecentage.Text + " = " + ((flag_failureBUID * 100)/ flag_TotalTasks)  + " %";
-                fileconversion.Text += " 100%";
+                successprecentage.Visible = true; 
+                successprecentage.Text = "Total precentage" + " = " + ((flag_successBUID * 100) / flag_TotalTasks) + " %";
+                failureprecentage.Visible = true; 
+                failureprecentage.Text = "Total precentage" + " = " + ((flag_failureBUID * 100) / flag_TotalTasks) + " %";
+                fileconversion.Text    = "File conversion 100%";
                 functions_object.conn.Close();
+                roll_back.Enabled = true;
+                start_conversion.Enabled = false;
           }
+
+
+        /*
+         * This the rollback function 
+         * it makes undo conversion
+         * for all converted DBF files
+         * */
+        private void roll_back_Click(object sender, EventArgs e)
+        {
+            rollbackBar.Maximum = all_maps.Length;
+            rollbackBar.Value = 0;  
+            for (int i = 0; i < all_maps.Length; i++ )
+            {
+                String Current_map = Path.Combine(mainfolder_path.SelectedPath, all_maps[i]);
+                String[] map_zones = Directory.GetDirectories(Path.Combine(mainfolder_path.SelectedPath, all_maps[i]));
+                for (int j = 0; j < map_zones.Length; j++) {
+                    String Current_zone = Path.Combine(Current_map, map_zones[j]);
+                    String[] zones_tasks = Directory.GetDirectories(Path.Combine(Current_map, map_zones[j]));
+                    for (int x = 0; x < zones_tasks.Length; x++) {
+                        try {
+                            String Current_task = Path.Combine(Current_zone, zones_tasks[x]);
+                            String DBF_file = Path.Combine(Current_task, "Backup_RTA_Buildings.dbf");
+                            System.IO.File.Delete(Path.Combine(Current_task, "RTA_Buildings.dbf"));
+                            System.IO.File.Move(DBF_file, Path.Combine(Current_task, "RTA_Buildings.dbf"));
+                          }catch (Exception error) {
+                            alert_msg(error.ToString());
+                            functions_object.error_log(error.ToString());
+                            continue;
+                        }
+                        currentstatus.Text = zones_tasks[x]; 
+                        currentstatus.Update();
+                    
+                    }//END OF LOOPING ON ALL TASKS FOR EACH ZONE
+                }//END LOOPING ON ALL ZONES FOR EACH MAP
+                rollbackBar.Value += 1; 
+            }//END LOOPING ON EACH MAP
+            success_msg("Rollback finished successfully");
+            roll_back.Enabled = false;
+            start_conversion.Enabled = true;
+            totalzones.Visible = false;
+            totaltasks.Visible = false;
+            successpanel.Visible = false;
+            failurepanel.Visible = false;
+            tasksbar.Value = 0;
+            zonebar.Value = 0;
+            mapsBar.Value = 0;
+            conversionBar.Value = 0; 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+
     }
 }

@@ -110,10 +110,12 @@ namespace DBF
             }
         }
 
+
         /*
          * Error logging function 
          * store failed BDF's paths in text file
          * */
+        
         public void error_log(String message) {
             String error_file = "Errors_paths.txt";
             if (!File.Exists(error_file))
@@ -130,6 +132,7 @@ namespace DBF
                 tw.Close();
             }
         }
+
 
         /*
          * This function to connect with
@@ -158,7 +161,6 @@ namespace DBF
          * new and old BUIDs table
          * */
         public void insert_into_database(String old_buid, String new_buid) {
-
             MySqlCommand comm = conn.CreateCommand();
             comm.CommandText = "INSERT INTO old_new_buid(OLD_BUID,NEW_BUID) VALUES("+old_buid+","+new_buid+")";
             comm.ExecuteNonQuery();
